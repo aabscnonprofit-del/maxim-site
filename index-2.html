@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Максим Рачков — Архитектор бизнеса</title>
+  <meta name="description" content="Проверка идеи бизнеса и хирургия существующего бизнеса. Архитектор бизнеса Максим Рачков. Диагностика бизнеса и создание управляемых бизнес-систем." />
+
+  <link rel="icon" href="/favicon.ico" />
+
+  <style>
+
+    /* ─── Variables ─────────────────────────────────────────── */
+    :root {
+      --black:     #000000;
+      --white:     #ffffff;
+      --dim:       rgba(255, 255, 255, 0.55);
+      --line:      rgba(255, 255, 255, 0.10);
+      --font:      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --max-w:     900px;
+      --pad-x:     30px;
+      --section-y: 120px;
+      --radius:    6px;
+    }
+
+    /* ─── Reset ─────────────────────────────────────────────── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ─── Base ──────────────────────────────────────────────── */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 18px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ─── Layout ────────────────────────────────────────────── */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--pad-x);
+    }
+
+    main > section {
+      padding: var(--section-y) 0;
+    }
+
+    /* ─── Typography ─────────────────────────────────────────── */
+    h1 {
+      font-size: clamp(2rem, 5.5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 36px;
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 3.5vw, 2rem);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.015em;
+      margin-bottom: 32px;
+    }
+
+    /* FIX: h3 was used in the grid section but never defined — now styled */
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+    }
+
+    p {
+      font-size: 1rem;
+      opacity: 0.85;
+      margin-bottom: 18px;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    p strong {
+      color: var(--white);
+      opacity: 1;
+      font-weight: 700;
+    }
+
+    /* ─── Lists ─────────────────────────────────────────────── */
+    ul {
+      list-style: none;
+      margin-top: 8px;
+    }
+
+    ul li {
+      position: relative;
+      padding-left: 22px;
+      margin-bottom: 10px;
+      opacity: 0.80;
+    }
+
+    ul li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      opacity: 0.40;
+    }
+
+    /* FIX: steps were plain <p> tags — now a proper <ol> with counter styling */
+    ol.steps {
+      list-style: none;
+      counter-reset: step;
+      margin-top: 8px;
+    }
+
+    ol.steps li {
+      counter-increment: step;
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    ol.steps li:first-child {
+      border-top: 1px solid var(--line);
+    }
+
+    ol.steps li::before {
+      content: "0" counter(step);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--dim);
+      flex-shrink: 0;
+      min-width: 24px;
+    }
+
+    ol.steps li span {
+      font-size: 1.15rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    /* ─── Buttons ────────────────────────────────────────────── */
+    .btn {
+      display: inline-block;
+      background: var(--white);
+      color: var(--black);
+      font-family: var(--font);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 16px 28px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(255, 255, 255, 0.18);
+    }
+
+    /* FIX: active state was missing */
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    /* FIX: keyboard accessibility — focus ring */
+    .btn:focus-visible {
+      outline: 2px solid var(--white);
+      outline-offset: 3px;
+    }
+
+    /* FIX: replaced <br> spacers + inline margin with a flexbox wrapper */
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 36px;
+    }
+
+    /* ─── Grid ───────────────────────────────────────────────── */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px 60px;
+    }
+
+    /* FIX: added wrapper div so border-top appears per block, not per cell */
+    .grid-block {
+      border-top: 1px solid var(--line);
+      padding-top: 24px;
+    }
+
+    /* ─── About name — FIX: was an inline-styled <p> ────────── */
+    .about-name {
+      display: block;
+      font-size: clamp(1.6rem, 4vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 20px;
+    }
+
+    /* ─── Divider ─────────────────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: var(--line);
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 40px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.85rem;
+      opacity: 0.45;
+    }
+
+    /* FIX: footer link inherited no color — now explicitly white */
+    .footer-inner a {
+      color: var(--white);
+      text-decoration: none;
+      transition: opacity 0.15s ease;
+    }
+
+    .footer-inner a:hover {
+      opacity: 1;
+    }
+
+    /* ─── Responsive ─────────────────────────────────────────── */
+    @media (max-width: 700px) {
+      :root {
+        --section-y: 80px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+      }
+
+      .btn-group {
+        flex-direction: column;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- FIX: <main> wrapper added for proper document semantics -->
+  <main>
+
+    <!-- ── HERO ──────────────────────────────────────────── -->
+    <section>
+      <div class="container">
+
+        <h1>
+          Бизнес держится на вас?
+          <br><br>
+          Или вы хотите построить его правильно с самого начала.
+        </h1>
+
+        <p>
+          Я проверяю идеи нового бизнеса
+          и провожу хирургическое исправление существующего бизнеса.
+        </p>
+
+        <div class="btn-group">
+          <!-- FIX: added rel="noopener noreferrer" to all external links -->
+          <a class="btn" href="https://calendly.com/placeholder/business" target="_blank" rel="noopener noreferrer">
+            Диагностика бизнеса — 60 минут ($150)
+          </a>
+          <a class="btn" href="https://calendly.com/placeholder/start" target="_blank" rel="noopener noreferrer">
+            Проверка идеи бизнеса — 30 минут ($75)
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── PROBLEM RECOGNITION ───────────────────────────── -->
+    <section>
+      <div class="container">
+
+        <h2>Вам это знакомо?</h2>
+
+        <ul>
+          <li>все решения проходят через вас</li>
+          <li>сотрудники ждут указаний</li>
+          <li>прибыль непрозрачна</li>
+          <li>вы контролируете всё</li>
+          <li>бизнес не может работать без вас</li>
+        </ul>
+
+        <!-- FIX: removed <br> spacer — top margin on first p handles spacing -->
+        <p style="margin-top: 32px;"><strong>Это не бизнес.</strong></p>
+        <p>Это самозанятость с сотрудниками.</p>
+        <p>Я выстраиваю управляемую систему бизнеса.</p>
+
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── WITH WHOM I WORK ───────────────────────────────── -->
+    <section>
+      <div class="container">
+
+        <h2>С кем я работаю</h2>
+
+        <p>Я работаю с двумя типами клиентов.</p>
+
+        <ul>
+          <li>у вас уже есть бизнес — но в нём проблемы</li>
+          <li>вы хотите открыть бизнес и сделать это правильно с самого начала</li>
+        </ul>
+
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── 5 SIGNS ────────────────────────────────────────── -->
+    <section>
+      <div class="container">
+
+        <h2>5 признаков больного бизнеса</h2>
+
+        <ul>
+          <li>прибыль есть, но вы не понимаете откуда она</li>
+          <li>все решения проходят через владельца</li>
+          <li>нет системы управления</li>
+          <li>сотрудники работают хаотично</li>
+          <li>бизнес не может работать без вас</li>
+        </ul>
+
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── WHAT I DO ──────────────────────────────────────── -->
+    <section>
+      <div class="container">
+
+        <h2>Что я делаю</h2>
+
+        <div class="grid">
+
+          <div class="grid-block">
+            <!-- FIX: h3 now renders with proper styles (was browser-default before) -->
+            <h3>Создание нового бизнеса</h3>
+            <ul>
+              <li>проверка жизнеспособности идеи</li>
+              <li>разработка бизнес-модели</li>
+              <li>экономика продукта</li>
+              <li>план запуска</li>
+            </ul>
+          </div>
+
+          <div class="grid-block">
+            <h3>Хирургия существующего бизнеса</h3>
+            <ul>
+              <li>диагностика бизнеса</li>
+              <li>поиск слабого места</li>
+              <li>перестройка структуры</li>
+              <li>создание системы управления</li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── HOW IT WORKS ───────────────────────────────────── -->
+    <section>
+      <div class="container">
+
+        <h2>Как проходит работа</h2>
+
+        <!-- FIX: was four <p> tags — now a proper <ol> with numbered styling -->
+        <ol class="steps">
+          <li><span>Диагностика или проверка идеи</span></li>
+          <li><span>Поиск главного ограничения</span></li>
+          <li><span>Построение системы</span></li>
+          <li><span>Внедрение решений</span></li>
+        </ol>
+
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── ABOUT ──────────────────────────────────────────── -->
+    <section>
+      <div class="container">
+
+        <h2>Архитектор бизнеса</h2>
+
+        <!-- FIX: was a <p> with inline font-size/font-weight — now a .about-name span -->
+        <span class="about-name">Максим Рачков</span>
+
+        <p>
+          27 лет опыта в построении, исправлении, придумывании
+          и ведении собственных и чужих бизнесов.
+        </p>
+
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── CTA ────────────────────────────────────────────── -->
+    <section>
+      <div class="container">
+
+        <h2>Начать можно с диагностики</h2>
+
+        <p>
+          Если проблема очевидна —
+          вы узнаете это уже на диагностике.
+        </p>
+
+        <div class="btn-group">
+          <a class="btn" href="https://calendly.com/placeholder/business" target="_blank" rel="noopener noreferrer">
+            Диагностика бизнеса — 60 минут ($150)
+          </a>
+          <a class="btn" href="https://calendly.com/placeholder/start" target="_blank" rel="noopener noreferrer">
+            Проверка идеи бизнеса — 30 минут ($75)
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ─────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span>maximruchkov.com</span>
+        <a href="mailto:contact@placeholder.com">contact@placeholder.com</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
